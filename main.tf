@@ -1,6 +1,6 @@
 module "vpc" {
-    source = "git::https://github.com/coding-kumanan/tf-module-vpc.git?ref=main"
-  
+    source = "./vendor/modules/vpc"
+    VPC_CIDR = var.VPC_CIDR
 }
 
 # We cannot parametrize anything that's added n the source.
