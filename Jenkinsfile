@@ -5,6 +5,7 @@ pipeline {
     }
     parameters{
         choice(name: 'ENV', choices: ['dev', 'prod'], description: 'select your Environment')
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'select your Action')
     }
     stages{
         stage('Terraform init'){
@@ -19,9 +20,9 @@ pipeline {
                 sh "terraform plan -var-file=env-${ENV}/${ENV}.tfvars"
             }
         }
-        stage('Terraform Apply'){
+        stage('Terraform Action'){
             steps{
-                sh "terraform apply -auto-approve -var-file=env-${ENV}/${ENV}.tfvars"
+                sh "terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars"
             }
         }
     }
